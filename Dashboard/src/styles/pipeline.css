@@ -1,0 +1,107 @@
+/* Pipeline Animation Styles for FaultEye Sensor Locations */
+
+/* MUI Timeline Animated Dotted Connector */
+.dotted-connector {
+  border-left: 2px dotted rgba(0, 0, 0, 0.3) !important;
+  min-height: 30px;
+  animation: blink 1.2s linear infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Old SVG pipeline connector (kept for compatibility) */
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.pipeline-connector {
+  stroke: #90caf9;
+  stroke-width: 2;
+  stroke-dasharray: 8 6;
+  stroke-dashoffset: 100;
+  animation: dash 20s linear infinite;
+  transition: stroke 0.3s ease;
+}
+
+.pipeline-connector.fault {
+  stroke: #ef5350;
+  animation: dash 10s linear infinite;
+}
+
+.pipeline-connector.offline {
+  stroke: #bdbdbd;
+  animation: none;
+}
+
+/* Node status indicators */
+.node-status {
+  transition: all 0.3s ease;
+}
+
+.node-status.normal {
+  fill: #66bb6a;
+  filter: drop-shadow(0 0 8px rgba(102, 187, 106, 0.6));
+}
+
+.node-status.fault {
+  fill: #ef5350;
+  filter: drop-shadow(0 0 12px rgba(239, 83, 80, 0.8));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.node-status.offline {
+  fill: #bdbdbd;
+  filter: none;
+}
+
+.node-status.absent {
+  fill: #757575;
+  opacity: 0.4;
+}
+
+/* Pulse animation for fault nodes */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Distance label animation */
+.distance-label {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.node-container:hover .distance-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pipeline card hover effect */
+.pipeline-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pipeline-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Smooth transitions for all elements */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

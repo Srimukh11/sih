@@ -1,0 +1,144 @@
+/**
+ * Scrollable Header
+ * ✅ Scrolls with page content
+ * ✅ Completely transparent
+ * ✅ No visual background
+ * ✅ Logo + connection status scroll naturally
+ */
+
+.fe-header-invisible {
+  position: relative; /* Changed from fixed - scrolls with page */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px; /* Increased for bigger logo */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 0 32px;
+  z-index: 999;
+  pointer-events: none; /* Header becomes non-interactive */
+  background: transparent; /* Fully invisible */
+  border: none;
+  box-shadow: none;
+  margin-bottom: 0; /* No extra spacing */
+}
+
+/* Make children interactive again (logo + badge need clicks) */
+.fe-header-invisible > * {
+  pointer-events: auto;
+}
+
+/* Left Side - Logo Container */
+.fe-header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo Styling - Bigger size */
+.fe-logo {
+  height: 72px;
+  width: auto;
+  padding-left: 2.5ch;
+  padding-top: 1ch;
+  opacity: 0.95;
+  filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+}
+
+.fe-logo:hover {
+  opacity: 1;
+  transform: scale(1.05); /* Subtle zoom on hover */
+}
+
+/* Right Side - Connection Status Container */
+.fe-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #0b4f71;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  transition: all 0.3s ease;
+}
+
+.fe-header-right:hover {
+  background: #eaf2f8;
+  border-color: #083b55;
+}
+
+/* Status Dot - Online/Offline Indicator */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.status-dot.online {
+  background-color: #86efac;
+  box-shadow: 0 0 0 0 rgba(134, 239, 172, 0.8);
+  animation: pulse-green 2s infinite;
+}
+
+.status-dot.offline {
+  background-color: #fca5a5;
+  box-shadow: 0 0 0 0 rgba(252, 165, 165, 0.8);
+}
+
+/* Pulse animation for online status */
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Status Text */
+.status-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: #0b4f71;
+  letter-spacing: 0.3px;
+  user-select: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fe-header-invisible {
+    padding: 0 16px;
+    height: 70px;
+  }
+
+  .fe-logo {
+    height: 50px; /* Bigger on tablet too */
+  }
+
+  .fe-header-right {
+    padding: 6px 12px;
+  }
+
+  .status-text {
+    display: none; /* Hide text on mobile, only show dot */
+  }
+}
+
+@media (max-width: 480px) {
+  .fe-header-invisible {
+    padding: 0 12px;
+    height: 60px;
+  }
+
+  .fe-logo {
+    height: 42px; /* Increased from 32px */
+  }
+}

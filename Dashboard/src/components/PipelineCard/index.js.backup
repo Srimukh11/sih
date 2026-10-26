@@ -1,0 +1,127 @@
+/**
+ * Pipeline Status Cards
+ * Four cards: Water Line, Gas Line, Electricity Line, Data Cable
+ */
+import PropTypes from "prop-types";
+import Card from "@mui/material/Card";
+import Icon from "@mui/material/Icon";
+import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+import MDBadge from "components/MDBadge";
+
+function PipelineCard({
+  title,
+  mainValue,
+  mainUnit = "",
+  subline,
+  trend,
+  status,
+  color = "info",
+  icon = "speed",
+}) {
+  // Determine badge color based on status
+  const getBadgeColor = () => {
+    const statusLower = status.toLowerCase();
+    if (
+      statusLower.includes("normal") ||
+      statusLower.includes("safe") ||
+      statusLower.includes("stable")
+    ) {
+      return "success";
+    }
+    if (
+      statusLower.includes("warning") ||
+      statusLower.includes("low") ||
+      statusLower.includes("degraded")
+    ) {
+      return "warning";
+    }
+    if (
+      statusLower.includes("critical") ||
+      statusLower.includes("down") ||
+      statusLower.includes("no flow")
+    ) {
+      return "error";
+    }
+    return "info";
+  };
+
+  return (
+    <Card sx={{ height: "100%" }}>
+      <MDBox display="flex" justifyContent="space-between" pt={1} px={2}>
+        <MDBox
+          variant="gradient"
+          bgColor={color}
+          color={color === "light" ? "dark" : "white"}
+          coloredShadow={color}
+          borderRadius="xl"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          width="4rem"
+          height="4rem"
+          mt={-3}
+        >
+          <Icon fontSize="medium" color="inherit">
+            {icon}
+          </Icon>
+        </MDBox>
+        <MDBox textAlign="right" lineHeight={1.25}>
+          <MDTypography variant="button" fontWeight="light" color="text">
+            {title}
+          </MDTypography>
+          <MDTypography variant="h4">
+            {mainValue}{" "}
+            {mainUnit && (
+              <MDTypography variant="button" fontWeight="bold" color="text">
+                {mainUnit}
+              </MDTypography>
+            )}
+          </MDTypography>
+        </MDBox>
+      </MDBox>
+      <MDBox pb={2} px={2}>
+        <MDBox display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+          <MDTypography variant="caption" color="text">
+            {subline}
+          </MDTypography>
+          <MDBadge
+            variant="contained"
+            color={getBadgeColor()}
+            size="xs"
+            badgeContent={status}
+            container
+          />
+        </MDBox>
+        {trend && (
+          <MDTypography variant="caption" color="text" mt={1}>
+            Trend: {trend > 0 ? "+" : ""}
+            {trend.toFixed(1)}%
+          </MDTypography>
+        )}
+      </MDBox>
+    </Card>
+  );
+}
+
+PipelineCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  mainValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  mainUnit: PropTypes.string,
+  subline: PropTypes.string.isRequired,
+  trend: PropTypes.number,
+  status: PropTypes.string.isRequired,
+  color: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "info",
+    "success",
+    "warning",
+    "error",
+    "light",
+    "dark",
+  ]),
+  icon: PropTypes.string,
+};
+
+export default PipelineCard;

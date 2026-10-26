@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+influxdb-client
+paho-mqtt
+scikit-learn
+python-dotenv
+psycopg2-binary
+pandas
+numpy
+google-generativeai
+websockets
+python-multipart
+aiofiles
+sqlalchemy
+requests
